@@ -1,6 +1,5 @@
 // eslint-disable-next-line no-unused-vars
 import { request } from "./helpers";
-import axios from "axios";
 
 /**
  * Pull vehicles information
@@ -10,17 +9,15 @@ import axios from "axios";
 // TODO: All API related logic should be made inside this function.
 export default async function getData() {
     try {
-        const response = await axios.get("/api/vehicles.json");
-        const vehicleList = response.data;
-        const detailedVehiclePromises = vehicleList.map(async (vehicle) => {
+        const response = await fetch("/api/vehicles.json");
+        const vehicleData = await response.json();
+
+        const promises = vehicleData.map(async (vehicle) => {
             try {
-                const detailResponse = await axios.get(vehicle.apiUrl);
-                const detailedVehicle = detailResponse.data;
-                if (detailedVehicle.price) {
-                    return {
-                        ...vehicle,
-                        ...detailedVehicle,
-                    };
+                const detailResponse = await fetch(vehicle.apiUrl);
+                const detailData = await detailResponse.json();
+                if (detailData.price) {
+                    return { ...vehicle, ...detailData }; // Merge general and detail data
                 }
             } catch (error) {
                 if (error.response && error.response.status === 404) {
@@ -29,15 +26,20 @@ export default async function getData() {
                     );
                 } else {
                     console.error(
-                        `Error fetching vehicle details for ${vehicle.id}:`,
+                        `Error fetching vehicle details for ${vehicle.id}`,
                         error
                     );
                 }
             }
             return null;
         });
-        const detailedVehicles = await Promise.all(detailedVehiclePromises);
-        return detailedVehicles.filter((vehicle) => vehicle !== null);
+
+        const resolvedPromises = await Promise.all(promises);
+        const filteredVehicles = resolvedPromises.filter(
+            (vehicle) => vehicle !== null
+        );
+
+        return filteredVehicles;
     } catch (error) {
         console.error("Error fetching vehicle list:", error);
     }
