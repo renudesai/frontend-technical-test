@@ -5,6 +5,10 @@ import "./style.scss";
 export default function VehicleList() {
     // eslint-disable-next-line no-unused-vars
     const [loading, error, vehicles] = useData();
+    const duration = 1000; // ms
+    const delay = 500; // ms
+    const animStr = (i) =>
+        `fadeIn ${duration}ms ease-out ${delay * (i + 1)}ms forwards`;
 
     if (loading) {
         return <div data-testid="loading">Loading</div>;
@@ -16,10 +20,14 @@ export default function VehicleList() {
 
     return (
         <div data-testid="results" className="vehicles__wrapper">
-            {vehicles.map((vehicle) => (
-                <div className="vehicles__conatiner" key={vehicle.id}>
+            {vehicles.map((vehicle, i) => (
+                <div
+                    className="vehicles__conatiner"
+                    key={vehicle.id}
+                    style={{ animation: animStr(i) }}
+                >
                     <div className="vechicles__container-image">
-                        <img src={vehicle.media[1].url} alt="vehicle" />
+                        <img src={vehicle.media[0].url} alt="vehicle" />
                     </div>
                     <div className="vechicles__container-content">
                         <p className="vehicle__title">Vehicle {vehicle.id}</p>
