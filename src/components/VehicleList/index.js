@@ -27,10 +27,13 @@ export default function VehicleList() {
                     style={{ animation: animStr(i) }}
                 >
                     <div className="vechicles__container-image">
-                        <img src={vehicle.media[0].url} alt="vehicle" />
+                        <img
+                            src={vehicle.media[0].url}
+                            alt={`Vehicle ${vehicle.id}`}
+                        />
                     </div>
                     <div className="vechicles__container-content">
-                        <p className="vehicle__title">Vehicle {vehicle.id}</p>
+                        <h2 className="vehicle__title">Vehicle {vehicle.id}</h2>
                         <p className="vehicle__price">From {vehicle.price}</p>
                         <p className="vehicle__description">
                             {vehicle.description}

@@ -114,7 +114,7 @@ $color-light-grey: #E8E8E8;
 .vehicle__price {
   font-family: $font-base;
   font-weight: 500;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 20px;
   color: $font-color-grey;
   @media screen and (min-width:768px) {
@@ -125,7 +125,6 @@ $color-light-grey: #E8E8E8;
 
 .vehicle__description {
   font-family: $font-base;
-  font-weight: 200;
   font-size: 12px;
   line-height: 20px;
   color: $font-color-grey;
