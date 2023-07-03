@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import useData from "./useData";
 import "./style.scss";
 
 export default function VehicleList() {
     // eslint-disable-next-line no-unused-vars
     const [loading, error, vehicles] = useData();
+    const [showMore, setShowMore] = useState(false);
     const duration = 1000; // ms
     const delay = 500; // ms
-    const animStr = (i) =>
+
+    const animationStr = (i) =>
         `fadeIn ${duration}ms ease-out ${delay * (i + 1)}ms forwards`;
 
     if (loading) {
@@ -24,7 +26,7 @@ export default function VehicleList() {
                 <div
                     className="vehicles__conatiner"
                     key={vehicle.id}
-                    style={{ animation: animStr(i) }}
+                    style={{ animation: animationStr(i) }}
                 >
                     <div className="vechicles__container-image">
                         <img
@@ -36,8 +38,25 @@ export default function VehicleList() {
                         <h2 className="vehicle__title">Vehicle {vehicle.id}</h2>
                         <p className="vehicle__price">From {vehicle.price}</p>
                         <p className="vehicle__description">
-                            {vehicle.description}
+                            {vehicle.description}{" "}
+                            <span
+                                onClick={() => {
+                                    setShowMore(!showMore);
+                                }}
+                            >
+                                {showMore ? "Show Less" : "Show More"}
+                            </span>
                         </p>
+                        {showMore && (
+                            <>
+                                <p className="vehicle__info">
+                                    Model Year {vehicle.modelYear}
+                                </p>
+                                <p className="vehicle__info">
+                                    Passengers {vehicle.meta.passengers}
+                                </p>
+                            </>
+                        )}
                     </div>
                 </div>
             ))}

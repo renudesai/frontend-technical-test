@@ -92,6 +92,9 @@ $color-light-grey: #E8E8E8;
     padding: 20px 5px;
     align-items: center;
   }
+  @media screen and (min-width:1050px) {
+    flex: 2;
+  }
   
 }
 
@@ -129,6 +132,22 @@ $color-light-grey: #E8E8E8;
   line-height: 20px;
   color: $font-color-grey;
   margin-top: 10px;
+
+  span{
+    color: $color-black;
+    cursor: pointer;
+  }
+  @media screen and (min-width:768px) {
+    text-align: center;
+  }
+}
+
+.vehicle__info{
+  font-family: $font-base;
+  font-size: 12px;
+  line-height: 20px;
+  color: $font-color-grey;
+  margin-top: 5px;
   @media screen and (min-width:768px) {
     text-align: center;
   }
