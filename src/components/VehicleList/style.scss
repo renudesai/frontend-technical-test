@@ -50,13 +50,13 @@ $color-light-grey: #E8E8E8;
   }
 }
 
-.vechicles__container-image {
+.vehicles__image-container {
   display: flex;
   justify-content: flex-start;
   align-items: center;
   flex: 1;
 
-  img{
+  &__image{
     width: 150px;
     height: 150px;
     object-fit: cover;
